@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
-// import { userLogin } from "../slices/userSlice";
+import { userLogin } from "../slices/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 // import axios from "axios";
 export default function Loginpage() {
@@ -24,11 +24,13 @@ export default function Loginpage() {
   };
   const { register, handleSubmit, reset } = useForm();
   const submitlogin = (data) => {
-    console.log(isSuccess);
-    if (isSuccess) {
-      dispatch()
-      navigate("/dashboard");
-    }
+    const actionObj=userLogin(data)
+    dispatch(actionObj)
+    // console.log(isSuccess);
+    // if (isSuccess) {
+    //   dispatch()
+    //   navigate("/dashboard");
+    // }
 
     // window.alert("logged in");
     reset();
