@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-
-export default function Loginpage({ log, sign }) {
-  const tochange = () => {
-    sign(!log);
-  };
-
+import { NavLink, useNavigate } from "react-router-dom";
+// import { userLogin } from "../slices/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+// import axios from "axios";
+export default function Loginpage() {
+  const { userobj, isError, isSuccess, isLoading, errMsg } = useSelector(
+    (state) => state.user
+  );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // let dispatch = useDispatch();
   const [toggle, settoggle] = useState("");
   const [show, setshow] = useState("password");
   const showpwd = () => {
@@ -19,15 +24,18 @@ export default function Loginpage({ log, sign }) {
   };
   const { register, handleSubmit, reset } = useForm();
   const submitlogin = (data) => {
-    console.log(data);
-    window.alert("logged in");
+    console.log(isSuccess);
+    if (isSuccess) {
+      dispatch()
+      navigate("/dashboard");
+    }
+
+    // window.alert("logged in");
     reset();
   };
   return (
     <div>
-      <div
-        className={`lg:w-[50vw] w-[90vw] h-fit bg-slate-700 p-5 rounded-lg`}
-      >
+      <div className={`lg:w-[50vw] w-[90vw] h-fit bg-slate-700 p-5 rounded-lg`}>
         <h1 className="text-4xl text-white uppercase py-5">Login</h1>
         <div className="w-full flex items-center justify-center mx-auto">
           <form
@@ -75,10 +83,13 @@ export default function Loginpage({ log, sign }) {
         <div className=" flex p-10 w-full justify-center">
           <h2>
             Not a member?{" "}
-            <button className=" text-pink-950 hover:text-pink-700 duration-500" onClick={tochange}>
+            <NavLink
+              className=" text-pink-950 hover:text-pink-700 duration-500"
+              to="/signin"
+            >
               {" "}
               Create Account
-            </button>
+            </NavLink>
           </h2>
         </div>
       </div>
