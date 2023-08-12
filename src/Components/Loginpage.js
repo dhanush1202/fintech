@@ -26,7 +26,7 @@ export default function Loginpage({ log, sign }) {
   return (
     <div>
       <div
-        className={`lg:w-[50vw] w-[90vw] h-[80vh] bg-slate-700 p-5 rounded-lg`}
+        className={`lg:w-[50vw] w-[90vw] h-fit bg-slate-700 p-5 rounded-lg`}
       >
         <h1 className="text-4xl text-white uppercase py-5">Login</h1>
         <div className="w-full flex items-center justify-center mx-auto">
@@ -54,7 +54,7 @@ export default function Loginpage({ log, sign }) {
               type="submit"
               className="text-white border-2 hover:bg-pink-600 hover:border-pink-600 py-2 px-4 my-2 mx-auto rounded-lg text-xl duration-500"
             >
-              Submit
+              Log in
             </button>
           </form>
         </div>

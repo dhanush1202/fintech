@@ -28,7 +28,7 @@ export default function Homepage() {
         />
         <button
           type="submit"
-          className="login rounded-lg text-xl duration-500 px-3 py-2 my-3  hover:bg-blue-500 bg-blue-600"
+          className="text-white border-2 hover:bg-pink-600 hover:border-pink-600 py-2 px-4 my-2 mx-auto rounded-lg text-xl duration-500"
         >
           Subscribe
         </button>
