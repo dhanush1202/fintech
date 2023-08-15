@@ -21,7 +21,6 @@
 .env.SECERET_KEY
 .env.DATABASE_CONNECTION
 
-
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
