@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { useForm} from 'react-hook-form';
 
@@ -5,7 +6,7 @@ export default function Homepage() {
   const {handleSubmit, register, reset} = useForm();
   const submitform = (data) => {
     console.log(data);
-
+    axios.post("https://listmonk.app/docs/apis/subscribers/")
     reset();
   }
   return (

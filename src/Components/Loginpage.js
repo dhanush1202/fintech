@@ -22,17 +22,16 @@ export default function Loginpage() {
       setshow("password");
     }
   };
+  if (isSuccess) {
+    navigate("/dashboard");
+  }
+  if (isError !== false) {
+    window.alert("Enter valid credentials");
+  }
   const { register, handleSubmit, reset } = useForm();
   const submitlogin = (data) => {
-    const actionObj=userLogin(data)
-    dispatch(actionObj)
-    // console.log(isSuccess);
-    // if (isSuccess) {
-    //   dispatch()
-    //   navigate("/dashboard");
-    // }
-
-    // window.alert("logged in");
+    const actionObj = userLogin(data);
+    dispatch(actionObj);
     reset();
   };
   return (
@@ -50,7 +49,7 @@ export default function Loginpage() {
               className="p-2  bg-[#ccd6f6] text-gray-800 rounded-md"
               name="name"
               required
-              {...register("uname")}
+              {...register("name")}
             />
             <input
               type={show}

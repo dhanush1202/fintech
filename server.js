@@ -3,7 +3,6 @@ const exp = require("express");
 const app = exp();
 const cors = require('cors');
 
-app.use(exp.json())
 app.use(cors()); 
 
 const mclient = require("mongodb").MongoClient;
@@ -15,9 +14,9 @@ app.use('/user', userApp);
 
 //DB connection URL
 const DBurl = process.env.DATABASE_CONNECTION;
-app.use('*', (request, response) => {
-  response.sendFile(path.join(__dirname, './build/index.html'))
-})
+// app.use('*', (request, response) => {
+//   response.sendFile(path.join(__dirname, './build/index.html'))
+// })
 //connect with mongoDB server
 mclient
   .connect(DBurl)

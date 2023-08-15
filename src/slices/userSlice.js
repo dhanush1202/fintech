@@ -4,23 +4,28 @@ import axios from "axios";
 export const userLogin = createAsyncThunk(
   "loginuser",
   async (userCredentialsObject, thunkApi) => {
-    let response = await axios.post(
-      "https://localhost:4000/user/login",
-      userCredentialsObject
-    );
-    let data = response.data;
-    if (data.message === "Success") {
-      const token = data.payload;
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      // console.log()
-      localStorage.setItem("token", data.payload);
-      return data.userobj;
-    }
-    if (
-      data.message === "Invalid Password" ||
-      data.message === "User not found"
-    ) {
-      return thunkApi.rejectWithValue(data);
+    try {
+      let response = await axios.post(
+        "http://localhost:4000/user/login",
+        userCredentialsObject
+      );
+      let data = response.data;
+      
+      if (data.message === "Success") {
+        const token = data.payload;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        localStorage.setItem("token", data.payload);
+        return data.userobj;
+      }
+      
+      if (
+        data.message === "Invalid Password" ||
+        data.message === "User not found"
+      ) {
+        return thunkApi.rejectWithValue(data);
+      }
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data);
     }
   }
 );
@@ -36,12 +41,11 @@ let userSlice = createSlice({
   },
   reducers: {
     clearLoginStatus: (state) => {
-      state.userobj = null;
+      state.userobj = {};
       state.isError = false;
       state.isSuccess = false;
       state.isLoading = false;
       state.errMsg = "";
-      return state;
     },
   },
   extraReducers: {
@@ -54,16 +58,15 @@ let userSlice = createSlice({
       state.isSuccess = true;
       state.isLoading = false;
       state.errMsg = "";
-      return state;
     },
     [userLogin.rejected]: (state, action) => {
       state.isError = true;
       state.isSuccess = false;
       state.isLoading = false;
-      state.errMsg = action.payload.message;
+      state.errMsg = action.payload.message || "An error occurred.";
     },
   },
 });
 
-export const {clearLoginStatus} = userSlice.actions
-export default userSlice.reducer
+export const { clearLoginStatus } = userSlice.actions;
+export default userSlice.reducer;

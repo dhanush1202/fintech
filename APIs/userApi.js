@@ -3,6 +3,7 @@ const userApp = exp.Router();
 const expressAsyncHandler = require('express-async-handler')
 const bcrypt = require('bcryptjs')
 const jsonwetoken = require('jsonwebtoken')
+userApp.use(exp.json())
 
 require("dotenv").config()
 
@@ -22,6 +23,7 @@ let userCollectionObject = request.app.get("userCollectionObject");
 }))
 
 userApp.post('/login', expressAsyncHandler(async (request, response) => {
+    console.log(request.body);
 let userCollectionObject = request.app.get("userCollectionObject");
     let newuserobj = request.body;
     let userisfound = await userCollectionObject.findOne({ name: newuserobj.name });
