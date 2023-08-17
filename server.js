@@ -1,4 +1,4 @@
-//create express app
+                                       //create express app
 const exp = require("express");
 const app = exp();
 const cors = require('cors');
@@ -8,16 +8,18 @@ app.use(cors());
 const mclient = require("mongodb").MongoClient;
 const userApp = require('./APIs/userApi')
 require("dotenv").config();
-//import path module
 const path = require("path");
 app.use('/user', userApp);
+app.use(cors({
+  origin: 'http://localhost:4001' 
+}));
 
 //DB connection URL
 const DBurl = process.env.DATABASE_CONNECTION;
 // app.use('*', (request, response) => {
 //   response.sendFile(path.join(__dirname, './build/index.html'))
 // })
-//connect with mongoDB server
+                                    //connect with mongoDB server
 mclient
   .connect(DBurl)
   .then((client) => {

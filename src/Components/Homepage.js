@@ -1,18 +1,41 @@
-import axios from 'axios';
-import React from 'react';
-import { useForm} from 'react-hook-form';
+import axios from "axios";
+import React from "react";
+import { useForm } from "react-hook-form";
+import video from "../resources/bgvideo.mp4"
 
 export default function Homepage() {
-  const {handleSubmit, register, reset} = useForm();
+  const { handleSubmit, register, reset } = useForm();
   const submitform = (data) => {
     console.log(data);
-    axios.post("https://listmonk.app/docs/apis/subscribers/")
-    reset();
+    const credentials = {
+      username: 'listmonk',
+      password: 'lBjRdUAZVu9HxH7f'
+    };
+
+    axios.post('http://localhost:9000/api/subscribers', data, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      auth: credentials
+    })
+    .then(response => {
+      console.log('Successful response:', response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error.message);
+    });
   }
   return (
-    <div className="flex justify-center items-center h-screen bg-slate-300 ">
-      <form onSubmit={handleSubmit(submitform)} className="p-5 bg-slate-700 rounded-lg">
-        <h2 className="sm:text-3xl text-xl mb-2 py-4 px-2 text-slate-300">Subscribe to our Newsletter</h2>
+    <div>
+       <video src={video} className=" object-cover opacity-70 h-full w-[200vw] top-0 left-0 -z-3  absolute" autoPlay loop muted playsInline={true} disablePictureInPicture={true} ></video>
+    <div className="flex justify-center items-center h-screen ">
+      <form
+        onSubmit={handleSubmit(submitform)}
+        className="p-5 bg-slate-700 rounded-lg z-10"
+      >
+        <h2 className="sm:text-3xl text-xl mb-2 py-4 px-2 text-slate-300">
+          Subscribe to our Newsletter
+        </h2>
         <input
           type="text"
           placeholder="Name"
@@ -34,6 +57,7 @@ export default function Homepage() {
           Subscribe
         </button>
       </form>
+    </div>
     </div>
   );
 }

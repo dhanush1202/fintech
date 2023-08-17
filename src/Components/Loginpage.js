@@ -25,9 +25,9 @@ export default function Loginpage() {
   if (isSuccess) {
     navigate("/dashboard");
   }
-  if (isError !== false) {
-    window.alert("Enter valid credentials");
-  }
+  // if (isError !== false) {
+  //   window.alert("Enter valid credentials");
+  // }
   const { register, handleSubmit, reset } = useForm();
   const submitlogin = (data) => {
     const actionObj = userLogin(data);
